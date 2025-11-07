@@ -1,17 +1,34 @@
 <template>
   <div class="fixed inset-0 z-50 overflow-y-auto" @click.self="$emit('close')">
-    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+    <div
+      class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0"
+    >
       <!-- Background overlay -->
-      <div class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" @click="$emit('close')"></div>
+      <div
+        class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75"
+        @click="$emit('close')"
+      ></div>
 
       <!-- Modal panel -->
-      <div class="inline-block w-full max-w-5xl my-8 text-left align-middle transition-all transform bg-white shadow-2xl rounded-2xl">
+      <div
+        class="inline-block w-full max-w-5xl my-8 text-left align-middle transition-all transform bg-white shadow-2xl rounded-2xl"
+      >
         <!-- Header -->
-        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gray-50 rounded-t-2xl">
+        <div
+          class="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gray-50 rounded-t-2xl"
+        >
           <div class="flex items-center space-x-4">
-            <button @click="$emit('close')" class="p-2 text-gray-400 hover:text-gray-600 transition rounded-lg hover:bg-gray-200">
+            <button
+              @click="$emit('close')"
+              class="p-2 text-gray-400 hover:text-gray-600 transition rounded-lg hover:bg-gray-200"
+            >
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
             <div>
@@ -19,12 +36,18 @@
               <p class="text-sm text-gray-500 font-mono">{{ ticketData.ticket_number }}</p>
             </div>
           </div>
-          
+
           <div class="flex items-center space-x-2">
-            <span :class="getPriorityClass(ticketData.priority)" class="px-3 py-1 text-xs font-medium rounded-full">
+            <span
+              :class="getPriorityClass(ticketData.priority)"
+              class="px-3 py-1 text-xs font-medium rounded-full"
+            >
               {{ ticketData.priority }}
             </span>
-            <span :class="getStatusClass(ticketData.status)" class="px-3 py-1 text-xs font-medium rounded-full">
+            <span
+              :class="getStatusClass(ticketData.status)"
+              class="px-3 py-1 text-xs font-medium rounded-full"
+            >
               {{ formatStatus(ticketData.status) }}
             </span>
           </div>
@@ -46,27 +69,41 @@
             <div v-if="ticketData.category === 'bug' && ticketData.steps_to_reproduce" class="mb-6">
               <h3 class="text-sm font-semibold text-gray-900 mb-3">Bug Details</h3>
               <div class="space-y-3">
-                <div v-if="ticketData.steps_to_reproduce" class="bg-red-50 border border-red-200 rounded-lg p-4">
+                <div
+                  v-if="ticketData.steps_to_reproduce"
+                  class="bg-red-50 border border-red-200 rounded-lg p-4"
+                >
                   <p class="text-xs font-semibold text-red-900 mb-2">Steps to Reproduce:</p>
                   <p class="text-sm text-gray-700">{{ ticketData.steps_to_reproduce }}</p>
                 </div>
-                <div v-if="ticketData.expected_behavior" class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div
+                  v-if="ticketData.expected_behavior"
+                  class="bg-blue-50 border border-blue-200 rounded-lg p-4"
+                >
                   <p class="text-xs font-semibold text-blue-900 mb-2">Expected Behavior:</p>
                   <p class="text-sm text-gray-700">{{ ticketData.expected_behavior }}</p>
                 </div>
-                <div v-if="ticketData.actual_behavior" class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                <div
+                  v-if="ticketData.actual_behavior"
+                  class="bg-orange-50 border border-orange-200 rounded-lg p-4"
+                >
                   <p class="text-xs font-semibold text-orange-900 mb-2">Actual Behavior:</p>
                   <p class="text-sm text-gray-700">{{ ticketData.actual_behavior }}</p>
                 </div>
                 <div v-if="ticketData.error_message" class="bg-gray-900 rounded-lg p-4">
                   <p class="text-xs font-semibold text-gray-300 mb-2">Error Message:</p>
-                  <pre class="text-xs text-red-400 overflow-x-auto">{{ ticketData.error_message }}</pre>
+                  <pre class="text-xs text-red-400 overflow-x-auto">{{
+                    ticketData.error_message
+                  }}</pre>
                 </div>
               </div>
             </div>
 
             <!-- Technical Details -->
-            <div v-if="ticketData.browser_info || ticketData.device_info || ticketData.page_url" class="mb-6">
+            <div
+              v-if="ticketData.browser_info || ticketData.device_info || ticketData.page_url"
+              class="mb-6"
+            >
               <h3 class="text-sm font-semibold text-gray-900 mb-3">Technical Information</h3>
               <div class="bg-gray-50 rounded-lg p-4 space-y-2 text-sm">
                 <div v-if="ticketData.browser_info">
@@ -79,7 +116,11 @@
                 </div>
                 <div v-if="ticketData.page_url">
                   <span class="font-medium text-gray-700">Page URL:</span>
-                  <a :href="ticketData.page_url" target="_blank" class="text-purple-600 hover:text-purple-700 ml-2 break-all">
+                  <a
+                    :href="ticketData.page_url"
+                    target="_blank"
+                    class="text-purple-600 hover:text-purple-700 ml-2 break-all"
+                  >
                     {{ ticketData.page_url }}
                   </a>
                 </div>
@@ -89,32 +130,50 @@
             <!-- Comments Section -->
             <div class="mb-6">
               <h3 class="text-sm font-semibold text-gray-900 mb-3">Comments & Activity</h3>
-              
+
               <!-- Comments List -->
               <div class="space-y-4 mb-4">
-                <div v-for="comment in comments" :key="comment.id" 
+                <div
+                  v-for="comment in comments"
+                  :key="comment.id"
                   :class="[
                     'border rounded-lg p-4',
-                    comment.is_internal ? 'bg-yellow-50 border-yellow-200' : 'bg-white border-gray-200'
-                  ]">
+                    comment.is_internal
+                      ? 'bg-yellow-50 border-yellow-200'
+                      : 'bg-white border-gray-200',
+                  ]"
+                >
                   <div class="flex items-start justify-between mb-2">
                     <div class="flex items-center space-x-2">
-                      <div :class="[
-                        'w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium',
-                        comment.commenter_type === 'developer' ? 'bg-purple-600 text-white' : 'bg-blue-600 text-white'
-                      ]">
+                      <div
+                        :class="[
+                          'w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium',
+                          comment.commenter_type === 'developer'
+                            ? 'bg-purple-600 text-white'
+                            : 'bg-blue-600 text-white',
+                        ]"
+                      >
                         {{ comment.commenter_name.charAt(0) }}
                       </div>
                       <div>
-                        <p class="text-sm font-medium text-gray-900">{{ comment.commenter_name }}</p>
-                        <p class="text-xs text-gray-500">{{ formatDateTime(comment.created_at) }}</p>
+                        <p class="text-sm font-medium text-gray-900">
+                          {{ comment.commenter_name }}
+                        </p>
+                        <p class="text-xs text-gray-500">
+                          {{ formatDateTime(comment.created_at) }}
+                        </p>
                       </div>
-                      <span v-if="comment.is_internal" class="px-2 py-0.5 bg-yellow-200 text-yellow-800 text-xs rounded-full">
+                      <span
+                        v-if="comment.is_internal"
+                        class="px-2 py-0.5 bg-yellow-200 text-yellow-800 text-xs rounded-full"
+                      >
                         Internal Note
                       </span>
                     </div>
                   </div>
-                  <p class="text-sm text-gray-700 whitespace-pre-wrap">{{ comment.comment_text }}</p>
+                  <p class="text-sm text-gray-700 whitespace-pre-wrap">
+                    {{ comment.comment_text }}
+                  </p>
                 </div>
 
                 <div v-if="comments.length === 0" class="text-center py-8 text-gray-500">
@@ -132,8 +191,14 @@
                 ></textarea>
                 <div class="flex items-center justify-between mt-3">
                   <label class="flex items-center">
-                    <input v-model="isInternalNote" type="checkbox" class="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500">
-                    <span class="ml-2 text-sm text-gray-700">Internal note (not visible to user)</span>
+                    <input
+                      v-model="isInternalNote"
+                      type="checkbox"
+                      class="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+                    />
+                    <span class="ml-2 text-sm text-gray-700"
+                      >Internal note (not visible to user)</span
+                    >
                   </label>
                   <button
                     @click="addComment"
@@ -150,9 +215,23 @@
             <div v-if="activityLog.length > 0">
               <h3 class="text-sm font-semibold text-gray-900 mb-3">Activity History</h3>
               <div class="space-y-2">
-                <div v-for="activity in activityLog" :key="activity.id" class="flex items-start space-x-3 text-sm">
-                  <svg class="w-4 h-4 text-gray-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                <div
+                  v-for="activity in activityLog"
+                  :key="activity.id"
+                  class="flex items-start space-x-3 text-sm"
+                >
+                  <svg
+                    class="w-4 h-4 text-gray-400 mt-0.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                   <div class="flex-1">
                     <p class="text-gray-700">
@@ -219,7 +298,9 @@
               <h3 class="text-sm font-semibold text-gray-900 mb-3">Reported By</h3>
               <div class="bg-white rounded-lg p-3 border border-gray-200">
                 <div class="flex items-center space-x-3 mb-2">
-                  <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium">
+                  <div
+                    class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium"
+                  >
                     {{ ticketData.user_name.charAt(0) }}
                   </div>
                   <div>
@@ -227,12 +308,16 @@
                     <p class="text-xs text-gray-500">{{ ticketData.user_email }}</p>
                   </div>
                 </div>
-                <span :class="[
-                  'inline-block px-2 py-1 text-xs rounded-full',
-                  ticketData.user_type === 'student' ? 'bg-green-100 text-green-800' :
-                  ticketData.user_type === 'teacher' ? 'bg-blue-100 text-blue-800' :
-                  'bg-gray-100 text-gray-800'
-                ]">
+                <span
+                  :class="[
+                    'inline-block px-2 py-1 text-xs rounded-full',
+                    ticketData.user_type === 'student'
+                      ? 'bg-green-100 text-green-800'
+                      : ticketData.user_type === 'teacher'
+                        ? 'bg-blue-100 text-blue-800'
+                        : 'bg-gray-100 text-gray-800',
+                  ]"
+                >
                   {{ ticketData.user_type }}
                 </span>
               </div>
@@ -244,23 +329,33 @@
               <div class="bg-white rounded-lg p-3 border border-gray-200 space-y-2 text-sm">
                 <div>
                   <span class="text-gray-600">Category:</span>
-                  <span class="ml-2 font-medium text-gray-900">{{ formatCategory(ticketData.category) }}</span>
+                  <span class="ml-2 font-medium text-gray-900">{{
+                    formatCategory(ticketData.category)
+                  }}</span>
                 </div>
                 <div>
                   <span class="text-gray-600">Created:</span>
-                  <span class="ml-2 font-medium text-gray-900">{{ formatDateTime(ticketData.created_at) }}</span>
+                  <span class="ml-2 font-medium text-gray-900">{{
+                    formatDateTime(ticketData.created_at)
+                  }}</span>
                 </div>
                 <div v-if="ticketData.updated_at !== ticketData.created_at">
                   <span class="text-gray-600">Updated:</span>
-                  <span class="ml-2 font-medium text-gray-900">{{ formatDateTime(ticketData.updated_at) }}</span>
+                  <span class="ml-2 font-medium text-gray-900">{{
+                    formatDateTime(ticketData.updated_at)
+                  }}</span>
                 </div>
                 <div v-if="ticketData.resolved_at">
                   <span class="text-gray-600">Resolved:</span>
-                  <span class="ml-2 font-medium text-gray-900">{{ formatDateTime(ticketData.resolved_at) }}</span>
+                  <span class="ml-2 font-medium text-gray-900">{{
+                    formatDateTime(ticketData.resolved_at)
+                  }}</span>
                 </div>
                 <div v-if="ticketData.hours_open">
                   <span class="text-gray-600">Open for:</span>
-                  <span class="ml-2 font-medium text-gray-900">{{ Math.floor(ticketData.hours_open) }}h</span>
+                  <span class="ml-2 font-medium text-gray-900"
+                    >{{ Math.floor(ticketData.hours_open) }}h</span
+                  >
                 </div>
               </div>
             </div>
@@ -297,15 +392,15 @@
 
 <script>
 import { ref, computed, onMounted, watch } from 'vue'
-import { supabase } from '@/supabase'
+import { supabase } from '../lib/supabaseClient'
 
 export default {
   name: 'TicketDetailsModal',
   props: {
     ticket: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   emits: ['close', 'refresh'],
   setup(props, { emit }) {
@@ -313,11 +408,11 @@ export default {
     const comments = ref([])
     const activityLog = ref([])
     const developers = ref([])
-    
+
     const newComment = ref('')
     const isInternalNote = ref(false)
     const submitting = ref(false)
-    
+
     const selectedStatus = ref(props.ticket.status)
     const selectedPriority = ref(props.ticket.priority)
     const selectedDeveloper = ref(props.ticket.assigned_to || '')
@@ -334,7 +429,7 @@ export default {
           .single()
 
         if (error) throw error
-        
+
         ticketData.value = data
         comments.value = data.comments || []
         activityLog.value = data.activity_log || []
@@ -368,7 +463,7 @@ export default {
           p_commenter_name: developerName.value,
           p_commenter_type: 'developer',
           p_comment_text: newComment.value,
-          p_is_internal: isInternalNote.value
+          p_is_internal: isInternalNote.value,
         })
 
         if (error) throw error
@@ -391,7 +486,7 @@ export default {
           p_ticket_id: ticketData.value.id,
           p_new_status: selectedStatus.value,
           p_updated_by_id: developerProfileId.value,
-          p_updated_by_name: developerName.value
+          p_updated_by_name: developerName.value,
         })
 
         if (error) throw error
@@ -408,9 +503,9 @@ export default {
       try {
         const { error } = await supabase
           .from('support_tickets')
-          .update({ 
+          .update({
             priority: selectedPriority.value,
-            updated_at: new Date().toISOString()
+            updated_at: new Date().toISOString(),
           })
           .eq('id', ticketData.value.id)
 
@@ -424,7 +519,7 @@ export default {
           performed_by_name: developerName.value,
           old_value: ticketData.value.priority,
           new_value: selectedPriority.value,
-          description: `Priority changed from ${ticketData.value.priority} to ${selectedPriority.value}`
+          description: `Priority changed from ${ticketData.value.priority} to ${selectedPriority.value}`,
         })
 
         await fetchTicketDetails()
@@ -440,7 +535,7 @@ export default {
         const { error } = await supabase.rpc('assign_ticket', {
           p_ticket_id: ticketData.value.id,
           p_developer_profile_id: selectedDeveloper.value || null,
-          p_assigned_by_name: developerName.value
+          p_assigned_by_name: developerName.value,
         })
 
         if (error) throw error
@@ -477,7 +572,7 @@ export default {
         urgent: 'bg-red-100 text-red-800',
         high: 'bg-orange-100 text-orange-800',
         medium: 'bg-yellow-100 text-yellow-800',
-        low: 'bg-green-100 text-green-800'
+        low: 'bg-green-100 text-green-800',
       }
       return classes[priority] || 'bg-gray-100 text-gray-800'
     }
@@ -488,21 +583,23 @@ export default {
         in_progress: 'bg-purple-100 text-purple-800',
         waiting_response: 'bg-yellow-100 text-yellow-800',
         resolved: 'bg-green-100 text-green-800',
-        closed: 'bg-gray-100 text-gray-800'
+        closed: 'bg-gray-100 text-gray-800',
       }
       return classes[status] || 'bg-gray-100 text-gray-800'
     }
 
     const formatStatus = (status) => {
-      return status.split('_').map(word => 
-        word.charAt(0).toUpperCase() + word.slice(1)
-      ).join(' ')
+      return status
+        .split('_')
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ')
     }
 
     const formatCategory = (category) => {
-      return category.split('_').map(word => 
-        word.charAt(0).toUpperCase() + word.slice(1)
-      ).join(' ')
+      return category
+        .split('_')
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ')
     }
 
     const formatDateTime = (timestamp) => {
@@ -511,7 +608,7 @@ export default {
         day: 'numeric',
         year: 'numeric',
         hour: '2-digit',
-        minute: '2-digit'
+        minute: '2-digit',
       })
     }
 
@@ -520,13 +617,16 @@ export default {
       fetchDevelopers()
     })
 
-    watch(() => props.ticket, (newTicket) => {
-      ticketData.value = { ...newTicket }
-      selectedStatus.value = newTicket.status
-      selectedPriority.value = newTicket.priority
-      selectedDeveloper.value = newTicket.assigned_to || ''
-      fetchTicketDetails()
-    })
+    watch(
+      () => props.ticket,
+      (newTicket) => {
+        ticketData.value = { ...newTicket }
+        selectedStatus.value = newTicket.status
+        selectedPriority.value = newTicket.priority
+        selectedDeveloper.value = newTicket.assigned_to || ''
+        fetchTicketDetails()
+      },
+    )
 
     return {
       ticketData,
@@ -550,8 +650,8 @@ export default {
       getStatusClass,
       formatStatus,
       formatCategory,
-      formatDateTime
+      formatDateTime,
     }
-  }
+  },
 }
 </script>
